@@ -10,4 +10,11 @@ export const CONSTANTS = {
       'Sorry, there are no images matching your search query. Please try again!',
     RESOURSE_ERROR: 'Requested resource is not found!',
   },
+  POP_UP_CONFIG: {
+    message: null,
+    iconUrl: '/img/error-icon.png',
+    messageColor: 'white',
+    backgroundColor: '#EF4040',
+    position: 'topRight',
+  },
 };
