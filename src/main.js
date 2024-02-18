@@ -34,7 +34,7 @@ form.addEventListener('submit', e => {
     }).catch(error => {
       console.debug(error);
       showErrorPopUp(CONSTANTS.ERROR_MESSAGES.RESOURSE_ERROR);
-    });
+    })
   }
 });
 
