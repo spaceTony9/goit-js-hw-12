@@ -1,5 +1,5 @@
 import iziToast from 'izitoast';
-import SimpleLightbox from "simplelightbox";
+import SimpleLightbox from 'simplelightbox';
 import { CONSTANTS } from './js/constants';
 import { getUrl } from './js/pixabay-api.js';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -9,7 +9,6 @@ const form = document.querySelector('.form');
 const input = document.querySelector('.input');
 const gallery = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
-
 
 const popUpConfig = {
   message: null,
@@ -31,29 +30,30 @@ form.addEventListener('submit', e => {
   e.preventDefault();
   const galleryLightBox = new SimpleLightbox('.gallery-photo a');
   gallery.innerHTML = '';
+
   if (!input.value) {
     showErrorPopUp(CONSTANTS.ERROR_MESSAGES.EMPTY_INPUT);
   } else {
     loader.classList.remove('hidden');
     searchParams.set('q', `${input.value}`);
-    getUrl.then(({data : {hits}}) => {
+
+    getUrl.then(({ data: { hits } }) => {
       if (!hits.length) {
         showErrorPopUp(CONSTANTS.ERROR_MESSAGES.IMAGES_NOT_FOUND);
       }
-      }
-    )
+    });
     fetch(`${CONSTANTS.API_URL}?${searchParams}`, {
       headers: {
         Accept: 'application/json',
       },
     })
       .then(response => {
-        // if (response.ok) {
-        //   return response.json();
-        // } else {
-        //   loader.classList.add('hidden');
-        //   throw new Error(response.status);
-        // }
+        if (response.ok) {
+          return response.json();
+        } else {
+          loader.classList.add('hidden');
+          throw new Error(response.status);
+        }
       })
       .then(data => {
         if (!data.hits.length) {
@@ -68,15 +68,22 @@ form.addEventListener('submit', e => {
         console.debug(error);
         showErrorPopUp(CONSTANTS.ERROR_MESSAGES.RESOURSE_ERROR);
       });
-
   }
-
 });
 
 function htmlMarkupCreator(galleryItems) {
-  return galleryItems.map(item => {
-    const {largeImageURL, webformatURL, tags, likes,views, comments, downloads} = item;
-    return `<li>
+  return galleryItems
+    .map(item => {
+      const {
+        largeImageURL,
+        webformatURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      } = item;
+      return `<li>
       <div class="gallery-photo">
         <a href="${largeImageURL}"
           ><img src="${webformatURL}" alt="${tags}"
@@ -101,7 +108,8 @@ function htmlMarkupCreator(galleryItems) {
         </div>
       </div>
     </li>`;
-  }).join("");
+    })
+    .join('');
 }
 
 function showErrorPopUp(message) {
