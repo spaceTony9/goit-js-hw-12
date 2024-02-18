@@ -1,7 +1,7 @@
 import iziToast from 'izitoast';
 import SimpleLightbox from "simplelightbox";
 import { CONSTANTS } from './js/constants';
-import { fetchPhotos } from './js/pixabay-api.js';
+import { getUrl } from './js/pixabay-api.js';
 import 'izitoast/dist/css/iziToast.min.css';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
@@ -28,30 +28,32 @@ const searchParams = new URLSearchParams({
 });
 
 form.addEventListener('submit', e => {
-  console.log(fetchPhotos());
   e.preventDefault();
   const galleryLightBox = new SimpleLightbox('.gallery-photo a');
-
   gallery.innerHTML = '';
-
   if (!input.value) {
     showErrorPopUp(CONSTANTS.ERROR_MESSAGES.EMPTY_INPUT);
   } else {
     loader.classList.remove('hidden');
     searchParams.set('q', `${input.value}`);
-
+    getUrl.then(({data : {hits}}) => {
+      if (!hits.length) {
+        showErrorPopUp(CONSTANTS.ERROR_MESSAGES.IMAGES_NOT_FOUND);
+      }
+      }
+    )
     fetch(`${CONSTANTS.API_URL}?${searchParams}`, {
       headers: {
         Accept: 'application/json',
       },
     })
       .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          loader.classList.add('hidden');
-          throw new Error(response.status);
-        }
+        // if (response.ok) {
+        //   return response.json();
+        // } else {
+        //   loader.classList.add('hidden');
+        //   throw new Error(response.status);
+        // }
       })
       .then(data => {
         if (!data.hits.length) {
@@ -66,7 +68,9 @@ form.addEventListener('submit', e => {
         console.debug(error);
         showErrorPopUp(CONSTANTS.ERROR_MESSAGES.RESOURSE_ERROR);
       });
+
   }
+
 });
 
 function htmlMarkupCreator(galleryItems) {

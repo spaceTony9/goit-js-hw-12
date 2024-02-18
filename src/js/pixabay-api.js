@@ -1,18 +1,23 @@
 import axios from 'axios';
-import { createLogger } from 'vite';
-export async function fetchPhotos (){
-  const axiosFetchApi = {
-    baseURL: 'https://pixabay.com/api/',
-    defaults: {
-      headers: {
-        common: '42384910-73277182c896d015737fb8e33'
-      }
-    }, params: {
+import { CONSTANTS } from './constants.js';
+
+export async function urlCreator() {
+  try{const getUrl = await axios.get( CONSTANTS.API_URL,{
+    params: {
+      key: CONSTANTS.API_KEY,
       q: null,
-      image_type: 'photo',
-      orientation: 'horizontal',
-      safesearch: true}
-  }
-  console.log(axiosFetchApi);
-  return 1;
+      image_type: CONSTANTS.IMAGE_TYPE,
+      orientation: CONSTANTS.PHOTO_ORIENTATION,
+      safesearch: CONSTANTS.SAFESEARCH,
+    }
+  })}
 }
+export const getUrl = axios.get( CONSTANTS.API_URL,{
+    params: {
+      key: CONSTANTS.API_KEY,
+      q: null,
+      image_type: CONSTANTS.IMAGE_TYPE,
+      orientation: CONSTANTS.PHOTO_ORIENTATION,
+      safesearch: CONSTANTS.SAFESEARCH,
+    }
+  })
