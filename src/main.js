@@ -1,5 +1,5 @@
 import iziToast from 'izitoast';
-import SimpleLightbox from 'simplelightbox';
+import SimpleLightbox from "simplelightbox";
 import { CONSTANTS } from './js/constants';
 import { fetchPhotos } from './js/pixabay-api.js';
 import 'izitoast/dist/css/iziToast.min.css';
