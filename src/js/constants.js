@@ -4,7 +4,7 @@ export const CONSTANTS = {
   PHOTO_ORIENTATION: 'horizontal',
   IMAGE_TYPE: 'photo',
   SAFESEARCH: true,
-  PHOTOS_PER_PAGE: 150,
+  PHOTOS_PER_PAGE: 15,
   ERROR_MESSAGES: {
     EMPTY_INPUT: 'Input must not be empty. Please try again!',
     IMAGES_NOT_FOUND:
