@@ -3,8 +3,9 @@
 }
 
 body {
-    height: 100vh;
+    /*height: 100vh;*/
     margin: 0;
+  padding-bottom: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,7 +48,7 @@ input:focus {
 }
 
 button {
-    width: 75px;
+    min-width: 75px;
     height: 40px;
     color: white;
     background-color: #4E75FF;

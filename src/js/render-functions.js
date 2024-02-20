@@ -10,7 +10,7 @@ export function htmlMarkupCreator(galleryItems) {
         comments,
         downloads,
       } = item;
-      return `<li>
+      return `<li class="list-item">
       <div class="gallery-photo">
         <a href="${largeImageURL}"
           ><img src="${webformatURL}" alt="${tags}"
