@@ -100,7 +100,7 @@ function photoLimitCalculator(totalAllowedPhotos, page) {
 function gentleScrollCreator() {
   const firstGalleryChild = gallery.firstElementChild.getBoundingClientRect();
   window.scrollBy({
-    top: firstGalleryChild.height * 2, // height * 4 works better
+    top: firstGalleryChild.height * 4, // height * 4 works better
     behavior: 'smooth',
   });
 }
